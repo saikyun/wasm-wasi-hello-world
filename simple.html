@@ -1,0 +1,7 @@
+<script>
+    const importObject = {
+        imports: { imported_func: arg => console.log("res: ", arg) },
+    };
+
+    WebAssembly.instantiateStreaming(fetch("simple.wasm"), importObject).then(o => o.instance.exports.exported_func());
+</script>
