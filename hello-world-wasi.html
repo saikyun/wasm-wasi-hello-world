@@ -1,9 +1,6 @@
 <script type="module">
-    
-    console.log("huh?");
-//    import WASI from "./node_modules/@bjorn3/browser_wasi_shim/dist/wasi.js";
+    // code from https://github.com/bjorn3/browser_wasi_shim/blob/main/README.md
     import { WASI, File, OpenFile, PreopenDirectory } from "./node_modules/@bjorn3/browser_wasi_shim/dist/index.js";
-
 
     let args = ["bin", "arg1", "arg2"];
     let env = ["ME=jona"];
@@ -14,18 +11,12 @@
     ];
     let wasi = new WASI(args, env, fds);
 
-    console.log("huh?333");
     let wasm = await WebAssembly.compileStreaming(fetch("hello-world-wasi.wasm"));
-    console.log("huh?444");
     let inst = await WebAssembly.instantiate(wasm, {
         "wasi_unstable": wasi.wasiImport
     });
 
-    console.log(inst);
-
-    console.log("huh? 5555");
     wasi.start(inst);
-    console.log("huh? last");
 
     console.log(new TextDecoder().decode(fds[1].file.data));
 

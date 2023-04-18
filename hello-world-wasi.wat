@@ -1,9 +1,15 @@
+;; code from https://github.com/bytecodealliance/wasmtime/blob/main/docs/WASI-tutorial.md#web-assembly-text-example
 (module
+    ;; Import the required fd_write WASI function which will write the given io vectors to stdout
+    ;; The function signature for fd_write is:
+    ;; (File Descriptor, *iovs, iovs_len, nwritten) -> Returns number of bytes written
     (import "wasi_unstable" "fd_write" (func $fd_write (param i32 i32 i32 i32) (result i32)))
 
     (memory 1)
     (export "memory" (memory 0))
 
+    ;; Write 'hello world\n' to memory at an offset of 8 bytes
+    ;; Note the trailing newline which is required for the text to appear
     (data (i32.const 8) "hello world\n")
 
     (func $main (export "_start")
