@@ -10,8 +10,7 @@ If you want to compile .wat to .wasm, use [wabt](https://github.com/WebAssembly/
 Install [wasmtime](https://github.com/bytecodealliance/wasmtime)
 
 ```
-wasmtime hello-world-wasi.wa
-t
+wasmtime hello-world-wasi.wat
 hello world
 ```
 
